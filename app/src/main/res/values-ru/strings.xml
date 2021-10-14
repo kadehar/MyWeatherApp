@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Погода</string>
+    <string name="weather">Погода</string>
+    <string name="wind">Ветер</string>
+    <string name="settings">Настройки</string>
+
+    <string name="temperature">Температура</string>
+    <string name="min_temperature">Мин. Температура</string>
+    <string name="max_temperature">Макс. Температура</string>
+    <string name="humidity">Влажность</string>
+    <string name="speed">Скорость</string>
+
+    <string name="city">Город</string>
+    <string name="save_button">Сохранить</string>
+</resources>
