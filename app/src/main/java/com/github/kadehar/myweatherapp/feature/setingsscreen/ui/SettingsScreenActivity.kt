@@ -1,6 +1,5 @@
 package com.github.kadehar.myweatherapp.feature.setingsscreen.ui
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.inputmethod.EditorInfo
@@ -36,7 +35,8 @@ class SettingsScreenActivity : AppCompatActivity() {
         val saveButton: Button = findViewById(R.id.settings_save_button)
         saveButton.setOnClickListener {
             intent.putExtra("city", text)
-            Log.d("SETTINGS", "CITY IN INTENT IS ${intent.extras?.getString("city")}")
+            Log.d("SETTINGS",
+                "CITY IN INTENT IS ${intent.extras?.getString("city")}")
         }
     }
 }
