@@ -19,6 +19,7 @@ fun WeatherModel.toDomain(): WeatherDomainModel {
 
     return WeatherDomainModel(
         temperature = temperature,
-        wind = wind
+        wind = wind,
+        city = this.name
     )
 }

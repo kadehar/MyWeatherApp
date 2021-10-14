@@ -7,8 +7,16 @@ import android.widget.SimpleAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.github.kadehar.myweatherapp.R
+import com.github.kadehar.myweatherapp.feature.setingsscreen.data.datastore.KEY
+import com.github.kadehar.myweatherapp.feature.setingsscreen.data.datastore.dataStore
 import com.github.kadehar.myweatherapp.feature.weatherscreen.domain.model.WeatherDomainModel
 import com.google.android.material.appbar.MaterialToolbar
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class WindScreenActivity : AppCompatActivity() {
@@ -34,14 +42,24 @@ class WindScreenActivity : AppCompatActivity() {
         podsList.adapter = podsAdapter
         windViewModel.liveData.observe(this, Observer(::render))
 
-        val city: String = intent.extras?.getString("city").toString()
-        Log.d("SETTINGS", "CITY NOW IS $city")
-        windViewModel.requestWind(city)
+        val city: Flow<String> = dataStore.data.map {
+            prefs -> prefs[KEY] ?: "Moscow"
+        }
+
+        CoroutineScope(Dispatchers.IO).launch {
+            city.collect {
+                windViewModel.requestWind(it)
+            }
+        }
     }
 
     private fun render(state: WeatherDomainModel) {
         pods.clear()
         pods.add(0, HashMap<String, String>().apply {
+            put("Title", getString(R.string.city))
+            put("Content", state.city)
+        })
+        pods.add(1, HashMap<String, String>().apply {
             put("Title", getString(R.string.speed))
             put("Content", state.wind.speed)
         })

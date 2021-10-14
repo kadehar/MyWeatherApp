@@ -6,7 +6,9 @@ data class WeatherModel(
     @SerializedName("main")
     val main: WeatherMainModel,
     @SerializedName("wind")
-    val wind: WeatherWindModel
+    val wind: WeatherWindModel,
+    @SerializedName("name")
+    val name: String
 )
 /*
 {
@@ -21,6 +23,7 @@ data class WeatherModel(
   "wind": {
     "speed": 1.5,
     "deg": 350
-  }
+  },
+  "name": "Mountain View"
 }
  */
