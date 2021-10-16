@@ -12,6 +12,7 @@ import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.coroutines.runBlocking
 
+// TODO: сделай пул реквестом домашку отдельно пж
 class SettingsScreenActivity : AppCompatActivity() {
     private var text: String = ""
 
@@ -35,12 +36,34 @@ class SettingsScreenActivity : AppCompatActivity() {
         }
 
         val saveButton: Button = findViewById(R.id.settings_save_button)
+        // TODO: есть такая проблема в андроиде, что при желании, ты сможешь взять и нажать на две кнопки одновременно, или даже на одну кнопку два раза если очень постараться, поэтому мы юзаем тротлы, которые изначально вытащили из роботов
+/*fun View.setThrottledClickListener(delay: Long = 200L, onClick: (View) -> Unit) {
+    setOnClickListener {
+        throttle(delay) {
+            onClick(it)
+        }
+    }
+}
+
+private var lastClickTimestamp = 0L
+fun View.throttle(delay: Long = DEFAULT_THROTTLE_DELAY, action: () -> Unit): Boolean {
+    val currentTimestamp = System.currentTimeMillis()
+    val delta = currentTimestamp - lastClickTimestamp
+    if (delta !in 0L..delay) {
+        lastClickTimestamp = currentTimestamp
+        action()
+        return true
+    }
+    return false
+}
+*/        
         saveButton.setOnClickListener {
             saveCity(text)
         }
     }
 
     private fun saveCity(city: String) {
+        // TODO: тут надо запустить на лайфсайкле активити viewLifecycleOwner.lifecycle.coroutineScope, иначе runBlocking тебе ui залочит
         runBlocking {
             dataStore.edit {
                 prefs -> prefs[KEY] = city
