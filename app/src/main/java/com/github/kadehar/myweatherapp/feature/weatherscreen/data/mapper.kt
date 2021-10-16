@@ -6,6 +6,7 @@ import com.github.kadehar.myweatherapp.feature.weatherscreen.domain.model.Weathe
 import com.github.kadehar.myweatherapp.feature.weatherscreen.domain.model.WeatherWindDomainModel
 
 fun WeatherModel.toDomain(): WeatherDomainModel {
+    // TODO: лучше вынеси этот маппинг в отдельную функцию, так как далее эта моделька вероятно попадется в другом месте, и тогда не придется отсюда логику копипастить
     val temperature = WeatherTemperatureDomainModel(
         temperature = this.main.temp,
         minTemperature = this.main.tempMin,
